@@ -13,7 +13,7 @@
 
 
 #include "transaction.h"
-#include "transactionManager.h"
+#include "transaction_manager.h"
 
 
 auto LockManager::LockShared(Transaction *txn, RID rid) -> bool {
