@@ -39,7 +39,7 @@ int main() {
     auto task = [&](int worker_num) {
         txn_id_t txn_id_batch = (worker_num+1)*times;
         for (txn_id_t txn_id = worker_num*times; txn_id < txn_id_batch; txn_id++) {
-            int res;
+            int res = 0;
             int i = e()%N;
             int j = e()%N;
 
