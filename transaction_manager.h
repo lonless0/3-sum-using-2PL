@@ -24,7 +24,6 @@
 
 
 #include "transaction.h"
-#include "rwlatch.h"
 #include "lock_manager.h"
 
 using txn_id_t = int;
@@ -109,6 +108,4 @@ private:
 
     std::atomic<txn_id_t> next_txn_id_{0};
     LockManager *lock_manager_ __attribute__((__unused__));
-    /** The global transaction latch is used for checkpointing. */
-    ReaderWriterLatch global_txn_latch_;
 };

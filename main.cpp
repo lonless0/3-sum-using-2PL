@@ -10,8 +10,7 @@ const int worker_num = 20;
 const int times = 10000;
 
 
-std::atomic_int fails = 0;
-std::atomic_int success = 0;
+std::atomic<int> fails = 0;
 
 void data_init(std::vector<RID>& data_) {
 
@@ -21,6 +20,10 @@ void data_init(std::vector<RID>& data_) {
 }
 
 int main() {
+    std::cout<<"worker: "<<worker_num<<std::endl;
+    std::cout<<"times: "<<times<<std::endl;
+    std::cout<<"length: "<<N<<std::endl;
+
     std::default_random_engine e;
     std::vector<RID> data;
     data_init(data);
@@ -55,7 +58,6 @@ int main() {
                 fails++;
             } else {
 //                printf("i=%d, j = %d, %d + %d + %d =%d -> %d\n", i, j, data[i], data[(i+1)%N], data[(i+2)%N], data[j], res);
-                success++;
                 data[j] = res;
             }
             txn_mgr.Commit(txns[txn_id]);
@@ -83,6 +85,7 @@ int main() {
 //        std::cout<<n<<" ";
 //    }
 //    std::cout<<std::endl;
+    auto success = times * worker_num - fails;
     std::cout<<"Committed: "<<success<<std::endl;
     std::cout<<"Aborted: "<<fails<<std::endl;
 
